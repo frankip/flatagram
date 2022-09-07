@@ -4,9 +4,12 @@ const imageCard = document.querySelector('.image-card')
 
 const init = () => {
     console.log("we are");
-
+    
     fetchDogData().catch((e) => console.log(e));
 }
+
+document.addEventListener('DOMContentLoaded', init)
+
 
 async function fetchDogData(){
     const imageResponse = await fetch(`${baseUrl}/images/1`);
@@ -22,23 +25,26 @@ async function fetchDogData(){
 const handleUpdateCard = (data) => {
     imageCard.querySelector('#card-title').textContent = data.title
     imageCard.querySelector('#card-image').src = data.image
-    imageCard.querySelector("#like-count").textContent = data.likes;
-
-
-    
+    imageCard.querySelector("#like-count").textContent = data.likes;  
 }
+
 
 const handleComments = (data)=> {
     const comments = imageCard.querySelector("#comments-list");
+    // clear child nodes
     comments.innerHTML = '';
 
     data.forEach(comment => {
         let listElement = document.createElement('li');
         listElement.textContent= comment.content
-        
-        // console.log(comment.content);
         comments.appendChild(listElement)
     })
 }
+i = 0;
+const handleLikes = () => {
+    let likes = imageCard.querySelector("#like-count").textContent;
+    let counter = parseInt(likes)+1
+    imageCard.querySelector("#like-count").textContent = counter;
+  
+}
 
-document.addEventListener('DOMContentLoaded', init)
