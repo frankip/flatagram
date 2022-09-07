@@ -1,11 +1,23 @@
 // write your code here
 const baseUrl = "http://localhost:3000";
 const imageCard = document.querySelector('.image-card')
+const comments = imageCard.querySelector("#comments-list");
 
 const init = () => {
     console.log("we are");
     
     fetchDogData().catch((e) => console.log(e));
+
+    const commentForm = document.querySelector('form')
+    commentForm.addEventListener('submit', (event)=>{
+        event.preventDefault()
+
+        let newComment = event.target.children[0].value
+        let newCommentList = document.createElement('li')
+        newCommentList.textContent = newComment
+        comments.appendChild(newCommentList);
+        event.target.children[0].value = ''
+    })
 }
 
 document.addEventListener('DOMContentLoaded', init)
@@ -30,7 +42,7 @@ const handleUpdateCard = (data) => {
 
 
 const handleComments = (data)=> {
-    const comments = imageCard.querySelector("#comments-list");
+    
     // clear child nodes
     comments.innerHTML = '';
 
@@ -46,5 +58,12 @@ const handleLikes = () => {
     let counter = parseInt(likes)+1
     imageCard.querySelector("#like-count").textContent = counter;
   
+}
+
+const handleAddComments = (event) => {
+    event.preventDefault()
+
+    let newComment = 
+    console.log('abc', newComment);
 }
 
